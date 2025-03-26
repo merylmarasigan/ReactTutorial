@@ -7,20 +7,25 @@ const Home = () => {
         {title:'Web dev tips', body:'lorem ipsum...', author:'mario', id:3}
     ])
 
+    const [name, setName] = useState('mario')
+
     function handleDelete(id){
         const newBlogs = blogPosts.filter((post) => post.id !== id);
         setBlogs(newBlogs);
     }
 
     useEffect(() => {
-        alert('useEffect ran');
-        console.log(blogPosts);
-        }
+        console.log('useEffect ran');
+        console.log(name);
+        }, 
+        [name]
     )
-    
+
     return (  
         <div className='home'>
             <PostsList posts={blogPosts} title='All Posts' handleDelete={handleDelete}></PostsList>
+            <button onClick={() =>{setName('luigi')}}>Change Name</button>
+            <p>{name}</p>
         </div>
     );
 }
