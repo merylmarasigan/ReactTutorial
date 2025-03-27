@@ -1,34 +1,9 @@
 import {useState, useEffect} from 'react';
 import PostsList from './PostsList';
+import useFetch from './useFetch';
 const Home = () => {
-    const [blogPosts, setBlogs] = useState(null);
-    const [isPending, setIsPending] = useState(true);
-    const [error,setError] = useState(null);
+   const  {error, isPending, data:blogPosts} = useFetch('http://localhost:8000/blogs');
 
-    useEffect(() => {
-
-        setTimeout(() => {
-            fetch('http://localhost:8000/blogs')
-                .then(res => {
-
-                    if(!res.ok){
-                        throw Error('could not fetch data for that resource'); // throws error when response is not ok
-                    }
-                    return res.json();
-                })
-                .then(data => {
-                    setBlogs(data);
-                    setIsPending(false);
-                    setError(null);
-                })
-            .catch(err => {
-                setError(err.message);
-                setIsPending(false);
-            }) //catches the situation where we don't get a response
-          
-        }, 1000);
-        
-      }, [])
     
 
     return (  
