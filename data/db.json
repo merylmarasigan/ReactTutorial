@@ -2,7 +2,7 @@
     "blogs": [
         {
             "title":"My first blog post!",
-            "body":"lorem ipsum...",
+            "body":"This is my first blog post! I'm excited to share all my thoughts with you!",
             "author":"mario",
             "id":1
         },
