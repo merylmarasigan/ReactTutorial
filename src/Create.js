@@ -4,10 +4,18 @@ const Create = () => {
     const [title, setTitle] = useState('');
     const [body, setBody] = useState('');
     const [author, setAuthor] = useState('mario');
+
+    function handleSubmit(event){
+        // default action on submit is to refresh the form, we don't want that
+        event.preventDefault();
+
+        let post = {title, body, author}
+        console.log(post)
+    }
     return (  
         <div className="create">
             <h2>Add a New Blog Post</h2>
-            <form>
+            <form onSubmit={handleSubmit}>
                 <label>Title:</label>
                 <input
                     type='text'
@@ -34,9 +42,7 @@ const Create = () => {
                 </select>
 
                 <button>Post</button>
-                <p>title: {title}</p>
-                <p>body: {body}</p>
-                <p>author: {author}</p>
+
             </form>
         </div>
     );
