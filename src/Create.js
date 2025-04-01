@@ -1,16 +1,32 @@
+import { setSelectionRange } from "@testing-library/user-event/dist/utils";
 import { useState } from "react";
 
 const Create = () => {
     const [title, setTitle] = useState('');
     const [body, setBody] = useState('');
     const [author, setAuthor] = useState('mario');
+    const [postingPending, setPostingPending] = useState(false) //when we first load this page, we don't submit form right away. Only after button has been clicked.
 
     function handleSubmit(event){
         // default action on submit is to refresh the form, we don't want that
         event.preventDefault();
 
-        let post = {title, body, author}
-        console.log(post)
+        let post = {title, body, author};
+        setPostingPending(true);
+        
+        fetch('http://localhost:8000/blogs',
+            {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'}, //specifies the type of content we're sending with this request (json)
+                body: JSON.stringify(post) // need to convert object into JSON b/c we're saying we're sending JSON
+            }).then(
+                //fetch is async and returns a promise so we can add .then method which calls a function when post is complete
+                () => {
+                    console.log('new post added!');
+                    setPostingPending(false)
+                }
+            )
+
     }
     return (  
         <div className="create">
@@ -41,7 +57,9 @@ const Create = () => {
                     <option value="yoshi">Yoshi</option>
                 </select>
 
-                <button>Post</button>
+                {!postingPending && <button>Post</button>}
+                {postingPending && <button disabled>Publishing Post...</button>}
+
 
             </form>
         </div>
