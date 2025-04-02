@@ -26,7 +26,7 @@ const Create = () => {
                 () => {
                     console.log('new post added!');
                     setPostingPending(false);
-                    history.push('/'); //redirets to home page
+                    history.push('/'); //redirects to home page
                 }
             )
         

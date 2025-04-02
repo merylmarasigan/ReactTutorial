@@ -13,12 +13,6 @@
       "id": "2"
     },
     {
-      "title": "Web dev tips",
-      "body": "lorem ipsum...",
-      "author": "mario",
-      "id": "3"
-    },
-    {
       "id": "076d",
       "title": "It's a-me!",
       "body": "Ya-hoo!",
@@ -29,12 +23,6 @@
       "title": "*Yoshi Noise*",
       "body": "*Yoshi Noise*",
       "author": "yoshi"
-    },
-    {
-      "id": "5b5a",
-      "title": "Hello, World!",
-      "body": "lorem ipsum ... ",
-      "author": "mario"
     }
   ]
 }
