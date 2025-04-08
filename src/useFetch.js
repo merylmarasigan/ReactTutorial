@@ -1,49 +1,56 @@
 import { useState, useEffect } from "react";
+import supabase from "./config/supabaseClient";
 
-const useFetch = (url) => {
+const useFetch = (id=null) => {
     const [data, setData] = useState(null);
     const [isPending, setIsPending] = useState(true);
     const [error,setError] = useState(null);
 
     useEffect(() => {
-        const abortCont = new AbortController(); 
-        // we can associate this abort controller with a specific fetch request and we can use it to stop the associated fetch request
 
-        setTimeout(() => {
-            fetch(url, {signal: abortCont.signal}) // associating abort Controller with this fetch
-                .then(res => {
+            let isMounted = true; // This will prevent state updates after component's been unmounted
 
-                    if(!res.ok){
-                        throw Error('could not fetch data for that resource'); // throws error when response is not ok
-                    }
-                    return res.json();
-                })
-                .then(data => {
-                    setData(data);
-                    setIsPending(false);
-                    setError(null);
-                })
-            .catch(err => {
-                //aborting a fetch throws an error, so we don't want to update state when an abort error is thrown
-                if (err.name === 'AbortError'){
+            const fetchPosts = async () => {
+                //query is a query to get all posts 
+                let query = supabase.from("Posts").select();
 
-                    console.log('fetch aborted')
-                }else{
-                    setError(err.message);
-                    setIsPending(false);
+                if(id){
+                    //if an id is provided, query is modified to get all post with matching id
+                    query = query.eq("id", id);
+
                 }
 
-            }) //catches the situation where we don't get a response
-          
-        }, 1000);
+                const {data, error} = await query;
 
-        return () => {abortCont.abort();} //the cleanup method will call the abort function to stop the associated fetch
-        
-      }, [url])
+                if(isMounted){
+                    if(error){
+                        setError(error.message);
+                        setData(null);
+                    }
 
-      // can return any type
-      return {data, isPending, error};
+                    if(data){
+                        setError(null);
+                        setData(data);
+                    }
 
-}
+                    setIsPending(false);
+
+                }
+
+            };
+
+            fetchPosts();
+
+            return () => {
+                isMounted= false;
+
+            };
+
+        },[]);
+
+
+        return {data, isPending, error};
+
+};
 
 export default useFetch;

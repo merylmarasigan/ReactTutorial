@@ -3,8 +3,7 @@ import PostsList from './PostsList';
 import useFetch from './useFetch';
 import supabase from './config/supabaseClient';
 const Home = () => {
-    console.log(supabase)
-    const  {error, isPending, data:blogPosts} = useFetch('http://localhost:8000/blogs');
+    const  {error, isPending, data:blogPosts} = useFetch();
 
     
 
