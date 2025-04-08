@@ -1,8 +1,10 @@
 import {useState, useEffect} from 'react';
 import PostsList from './PostsList';
 import useFetch from './useFetch';
+import supabase from './config/supabaseClient';
 const Home = () => {
-   const  {error, isPending, data:blogPosts} = useFetch('http://localhost:8000/blogs');
+    console.log(supabase)
+    const  {error, isPending, data:blogPosts} = useFetch('http://localhost:8000/blogs');
 
     
 
@@ -18,3 +20,4 @@ const Home = () => {
  
 export default Home;
 
+ 
