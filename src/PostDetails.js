@@ -1,12 +1,11 @@
 import { useParams } from "react-router-dom";
 import useFetch from "./useFetch";
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
-import { useState, useEffect } from "react"; // Import useEffect here
+// import { useState, useEffect } from "react"; // Import useEffect here
 
 
 const PostDetails = () => {
     const { id } = useParams();
-    console.log("this post's id:", id);
 
     // Fetch post data based on the id parameter
     const { data: post, error, isPending } = useFetch(id);
