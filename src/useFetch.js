@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import supabase from "./config/supabaseClient";
 
 const useFetch = (id=null) => {
+
     const [data, setData] = useState(null);
     const [isPending, setIsPending] = useState(true);
     const [error,setError] = useState(null);
@@ -16,7 +17,7 @@ const useFetch = (id=null) => {
 
                 if(id){
                     //if an id is provided, query is modified to get all post with matching id
-                    query = query.eq("id", id);
+                    query = query.eq("id", id).single();
 
                 }
 
@@ -46,7 +47,7 @@ const useFetch = (id=null) => {
 
             };
 
-        },[]);
+        },[id]);
 
 
         return {data, isPending, error};

@@ -25,9 +25,9 @@ const PostDetails = () => {
             {error && <div>{error} </div>}
             {post && 
                 <article>
-                    <h2>{post[0].title}</h2>
-                    <p>Written by {post[0].author}</p>
-                    <div>{post[0].body}</div>
+                    <h2>{post.title}</h2>
+                    <p>Written by {post.author}</p>
+                    <div>{post.body}</div>
                     <button onClick={handleClick}>Delete</button>
                 </article>
             }
